@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A58C8452299126600210728 /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A58C8442299126600210728 /* RatingControl.swift */; };
 		7A9AAC0321FC74DE00766650 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9AAC0221FC74DE00766650 /* AppDelegate.swift */; };
 		7A9AAC0521FC74DE00766650 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9AAC0421FC74DE00766650 /* ViewController.swift */; };
 		7A9AAC0821FC74DE00766650 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A9AAC0621FC74DE00766650 /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A58C8442299126600210728 /* RatingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
 		7A9AABFF21FC74DE00766650 /* FoodTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A9AAC0221FC74DE00766650 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7A9AAC0421FC74DE00766650 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			children = (
 				7A9AAC0221FC74DE00766650 /* AppDelegate.swift */,
 				7A9AAC0421FC74DE00766650 /* ViewController.swift */,
+				7A58C8442299126600210728 /* RatingControl.swift */,
 				7A9AAC0621FC74DE00766650 /* Main.storyboard */,
 				7A9AAC0921FC74E000766650 /* Assets.xcassets */,
 				7A9AAC0B21FC74E000766650 /* LaunchScreen.storyboard */,
@@ -193,6 +196,7 @@
 				TargetAttributes = {
 					7A9AABFE21FC74DE00766650 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 					7A9AAC1221FC74E000766650 = {
 						CreatedOnToolsVersion = 10.1;
@@ -257,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A9AAC0521FC74DE00766650 /* ViewController.swift in Sources */,
+				7A58C8452299126600210728 /* RatingControl.swift in Sources */,
 				7A9AAC0321FC74DE00766650 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -440,7 +445,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = wu.seal.FoodTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -457,7 +462,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = wu.seal.FoodTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

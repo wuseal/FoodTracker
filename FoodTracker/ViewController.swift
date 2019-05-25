@@ -14,12 +14,15 @@ class ViewController: UIViewController , UITextFieldDelegate, UIImagePickerContr
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var mealNameLabel: UILabel!
     @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet weak var myLabel: UILabel!
+    @IBOutlet weak var ratingControl: RatingControl!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         // Handle the text field user input through the delegate callbacks
         nameTextField.delegate = self
+        myLabel.text = "I am Seal's"
     }
 
     
@@ -57,10 +60,7 @@ class ViewController: UIViewController , UITextFieldDelegate, UIImagePickerContr
         present(imagePickController, animated: true, completion: nil)
         
     }
-    @IBAction func setDefaultLabelText(_ sender: UIButton) {
-        mealNameLabel.text = "Default Text"
-    }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //hide the keyboard
         textField.resignFirstResponder()
