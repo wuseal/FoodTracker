@@ -5,14 +5,16 @@
 //  Created by 吴海豹 on 2019/5/26.
 //  Copyright © 2019 吴海豹. All rights reserved.
 //
+
 import UIKit
 import os.log
 
 class MealTableViewController: UITableViewController {
     var meals = [Meal]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadSampleMeals()
+
         // Use the edit button item provided by the table view controller.
         navigationItem.leftBarButtonItem = editButtonItem
         // Uncomment the following line to preserve selection between presentations
@@ -20,6 +22,20 @@ class MealTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+
+        // Load any saved meals, otherwise load sample data.
+        if let savedMeals = loadMeals() {
+            meals += savedMeals
+            if meals.isEmpty {
+                // Load the sample data.
+                loadSampleMeals()
+            }
+        } else {
+            // Load the sample data.
+            loadSampleMeals()
+        }
+
+
     }
 
     @IBAction func unwindToMealList(sender: UIStoryboardSegue) {
@@ -28,11 +44,13 @@ class MealTableViewController: UITableViewController {
                 // Update an existing meal.
                 meals[selectedIndexPath.row] = meal
                 tableView.reloadRows(at: [selectedIndexPath], with: .none)
-            }else {
+            } else {
                 let newIndexPath = IndexPath(row: meals.count, section: 0)
                 meals.append(meal)
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
             }
+            // Save the meals.
+            saveMeals()
         }
     }
 
@@ -58,20 +76,24 @@ class MealTableViewController: UITableViewController {
         return cell
 
     }
+
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
+
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
             meals.remove(at: indexPath.row)
+            // Save the meals.
+            saveMeals()
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
 
     /*
@@ -145,5 +167,18 @@ class MealTableViewController: UITableViewController {
         }
 
         meals += [meal1, meal2, meal3]
+    }
+
+    private func saveMeals() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(meals, toFile: Meal.ArchiveURL.path)
+        if isSuccessfulSave {
+            os_log("Meals successfully saved.", log: OSLog.default, type: .debug)
+        } else {
+            os_log("Failed to save meals...", log: OSLog.default, type: .error)
+        }
+    }
+
+    private func loadMeals() -> [Meal]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Meal.ArchiveURL.path) as? [Meal]
     }
 }
