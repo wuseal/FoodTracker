@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os.log
 
 class MealTableViewCell: UITableViewCell {
 
@@ -19,6 +20,7 @@ class MealTableViewCell: UITableViewCell {
         super.awakeFromNib()
 
     }
+
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

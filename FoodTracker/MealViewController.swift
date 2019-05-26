@@ -19,18 +19,34 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var ratingControl: RatingControl!
-
     @IBOutlet weak var saveButton: UIBarButtonItem!
 
     @IBAction func cancel(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+        // Depending on style of presentation (modal or push presentation), this view controller needs to be dismissed in two different ways.
+        let isPresentingInAddMealMode = presentingViewController is UINavigationController
+        if isPresentingInAddMealMode {
+            dismiss(animated: true, completion: nil)
+        } else if let owningNavigationController = navigationController {
+            owningNavigationController.popViewController(animated: true)
+        }else {
+            fatalError("The MealViewController is not inside a navigation controller.")
+        }
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
         // Handle the text field user input through the delegate callbacks
         nameTextField.delegate = self
+
+        // Set up views if editing an existing Meal.
+        if let meal = meal {
+            navigationItem.title = meal.name
+            nameTextField.text = meal.name
+            photoImageView.image = meal.photo
+            ratingControl.rating = meal.rating
+        }
 
         updateSaveButtonState()
     }
@@ -74,18 +90,13 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     @IBAction func selectImageFromPhotoLibrary(_ sender: UITapGestureRecognizer) {
         //hide the keyboard
         nameTextField.resignFirstResponder()
-
         //UIImagePickerController is a view controller that let a user pick media from their photo library
         let imagePickController = UIImagePickerController()
-
         //Only allow photos to be picked, not taken
         imagePickController.sourceType = .photoLibrary
-
         //make sure ViewController is notified when the user picked a picture
         imagePickController.delegate = self
-
         present(imagePickController, animated: true, completion: nil)
-
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
